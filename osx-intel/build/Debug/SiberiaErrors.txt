@@ -1,0 +1,5 @@
+  Error Log File : Time = 17:17:54.123 Date = 23-10-2006
+  --------------------------------------------------
+ 
+  --- WARNING --- No #siberia.setup# file
+  --- WARNING --- ModeDir=1 no longer supported ... changing to ModeDir=0
