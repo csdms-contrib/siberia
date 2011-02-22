@@ -1,0 +1,408 @@
+SIBERIA MODEL
+    This is a siberia models input file. The first line of the file 
+    above is fixed and should not be edited. The next three lines (i.e these lines
+    are for file description data and can be modified by the user
+#
+# ======================================================================================
+#       This file contains the extnded models information for SIBERIA 
+#      (including regional variations in runoff, erosion and tectonics, layering)
+# ======================================================================================
+#
+#  The format of this file is as a series of example commands giving the
+#  general format of the commands. The commands can be in any order and there
+#  are no limits on the number of commands in the file. Each command is a 
+#  single line of information.
+#
+#  We suggest that you copy the appropriate command line examples and edit copies
+#  so that you always have copies of the original correct form of the command.
+#
+#  NB 1. All commands are independent of each other so that runoff and erosion
+#     commands can be entered independently. However, the runoff commands are dependent
+#     on each other with subsequent runoff commands working on the result of previous
+#     runoff commands if the regions over which they apply are overlapping. The same 
+#     is true of the erosion commands, tectonics, layers, etc. 
+#
+#     In particular, if you have regions
+#     of different material you may change the runoff for that region and not the erosion
+#     model if that is appropriate (and vice versa) or you may change both if
+#     appropriate, or you may change one 'absolute' and one 'relative' if desired.
+#
+#     2. These commands assume that the erosion model and the runoff model are initially
+#     everywhere uniform and determined by the b1, m1, n1, b3, n3 parameters specified in 
+#     the RST2 file.
+#
+#                            Compatible with SIBERIA V8.31
+#                            =============================
+#     UPDATE HISTORY
+#     --------------
+#        1/12/2003  Additions to for region based uplift and aggradation (V8.20)
+#        7/ 4/2004	Additions to support new LAYERS module (V8.25)
+#          11/2004  Further modifications for LAYERS module (V8.28)
+#           4/2006  Addition of tracer tracking (V8.31)
+#
+# ======================================================================================
+#                                  EROSION commands
+# ======================================================================================
+#
+#   These commands are read in SIBERIA when the parameter ModeErode=3 and 
+#   the EROSION file parameter=-1 is set to this file.
+#
+#                       The EROSION commands come in two forms:
+#                       --------------------------------------
+#                                GENERAL EROSION MODEL
+#                                ---------------------
+#   The most general form of the erosion commands from left to right is
+#     - 'EROSION' indicating  this is an erosion command (starts in column 1)
+#     - one of either 'ABSOLUTE' or 'RELATIVE' indicating
+#          ABSOLUTE: the erosion parameters are as given
+#          RELATIVE: the erosion parameters given are multipied with
+#                   the erosion parameters at that point previously
+#                   given .... ie. this changes the parameters by a relative amount
+#     - the parameters b1, m1, n1. For RELATIVE these are interpretted as multipliers
+#     - the region file for applying those parameters (it must inside '')
+#
+#   The command below replaces the erosion model over the region defined by test1.rgn
+#   with an erosion model with b1(new)=0.01, m1(new)=0.6, n1(new)=0.7
+#
+#EROSION ABSOLUTE 0.01 0.6 0.7 'control\test1.rgn'
+#
+#   The command below replaces the erosion model over the region defined by test2.rgn
+#   with an erosion model with b1(new)=0.05, m1(new)=0.2, n1(new)=0.3
+#   NB. Because this command after the test1.rgn command where 
+#       test1.rgn and test2.rgn overlap test2.rgn overwrites test1.rgn
+#
+#EROSION ABSOLUTE 0.05 0.2 0.3 'control\test2.rgn'
+#
+#   The command below modifies the erosion model over the region defined by test3.rgn
+#   with an erosion model with b1(new)=b1(old)*0.1
+#                              m1(new)=m1(old)*0.7 
+#                              n1(new)=n1(old)*1.2
+#   NB. Because this command after the test1.rgn and test2.rgn commands where 
+#       test1.rgn, test2.rgn and test3.rgn overlap test3.rgn overwrites the other files
+#
+#EROSION RELATIVE 0.1 0.7 1.2 'control\test.rgn'
+#
+#
+#                         ERODIBILITY ONLY EROSION MODEL
+#                         ------------------------------
+#
+#   A more specific form of the erosion command only modifies the erodibility
+#   and is of the form
+#     - 'ERODIBILITY' indicating  this is an erosion command (starts in column 1)
+#     - one of either 'ABSOLUTE' or 'RELATIVE' indicating
+#          ABSOLUTE: the erosion parameters are as given
+#          RELATIVE: the erosion parameters given are multipied with
+#                   the erosion parameters at that point previously
+#                   given .... ie. this changes the parameters by a relative amount
+#     - the parameter b1. For RELATIVE these are interpretted as multipliers
+#     - the region file for applying those parameters (it must inside '')
+#
+#   The command below modifies the erosion model over the region defined by test3.rgn
+#   with an erosion model with b1(new)=b1(old)*0.1
+#
+#ERODIBILITY RELATIVE 0.1 'control\test.rgn'
+#
+#
+#
+# ======================================================================================
+#                                      RUNOFF commands
+# ======================================================================================
+#
+#   These commands are read in SIBERIA when the parameter ModeRunoff=3 and 
+#   the RUNOFF file parameter=-2 is set to this file.
+#
+#   The general form of the erosion commands from left to right is
+#     - 'RUNOFF' indicating  this is an runoff command (starts in column 1)
+#     - one of either 'ABSOLUTE' or 'RELATIVE' indicating
+#          ABSOLUTE: the runoff parameters are as given
+#          RELATIVE: the runoff parameters given are multipied with
+#                   the runoff parameters at that point previously
+#                   given .... ie. this changes the parameters by a relative amount
+#     - the parameters b3, m3. For RELATIVE these are interpretted as multipliers
+#     - the region file for applying those parameters (it must inside '')
+#
+#
+#   The command below replaces the runoff model over the region defined by test0.rgn
+#   with a runoff model with b3(new)=1.0, m3(new)=0.8
+#
+#RUNOFF ABSOLUTE 1.0 1.0 'test1.rgn'
+#
+#
+#   The command below updates the runoff model over the region defined by test1_2.rgn
+#   with a runoff model with b3(new)=b3(old)*2.0, m3(new)=m3(old)*0.9
+#
+#RUNOFF RELATIVE 2.0 0.9 'control\test1_2.rgn'
+#
+#
+#   The command below updates the runoff model over the region defined by test0.rgn
+#   with a runoff model with b3(new)=b3(old)*0.5, m3(new)=m3(old)*1.0
+#
+#RUNOFF RELATIVE 0.5 1.0 'control\test.rgn'
+#
+#
+# ======================================================================================
+#                                 CHANNEL commands
+# ======================================================================================
+#
+#
+#   These commands are read in SIBERIA when the parameter ModeChannel=3 and 
+#   the CHANNEL file parameter=-6 is set to this file.
+#
+#   The general form of the erosion commands from left to right is
+#     - 'CHANNEL' indicating  this is an runoff command (starts in column 1)
+#     - one of either 'ABSOLUTE' or 'RELATIVE' indicating
+#          ABSOLUTE: the runoff parameters are as given
+#          RELATIVE: the runoff parameters given are multipied with
+#                   the runoff parameters at that point previously
+#                   given .... ie. this changes the parameters by a relative amount
+#     - the parameters b5, m5, n5. For RELATIVE these are interpretted as multipliers
+#     - the region file for applying those parameters  (it must inside '')
+#
+#CHANNEL RELATIVE 0.5 1.0 1.0 'control\test.rgn'
+#
+#
+# ======================================================================================
+#                                  UPLIFT commands
+# ======================================================================================
+#
+#
+#   These commands are read in SIBERIA when the parameter ModeChannel=4 and 
+#   the UPLIFT file parameter=-3 is set to this file.
+#
+#   The general form of the erosion commands from left to right is
+#     - 'UPLIFT' indicating  this is an runoff command (starts in column 1)
+#     - one of either 'ABSOLUTE' or 'RELATIVE' indicating
+#          ABSOLUTE: the uplift parameters are as given
+#          RELATIVE: this mode is ignored in the current version (NB. RELATIVE or 
+#                    ABSOLUTE must still be input).
+#     - one parameter: the uplift rate/timestep.
+#     - the region file for applying this parameters (it must inside '')
+#
+#UPLIFT ABSOLUTE 0.5 1.0 1.0 'control\test.rgn'
+#
+#
+# ======================================================================================
+#                      KNOWN AGGRADATION/DEGRADATION rate commands
+# ======================================================================================
+#
+#
+#   These commands are read in SIBERIA when the parameter ModeChannel=4 and 
+#   the UPLIFT file parameter=-3 is set to this file.
+#
+#   The general form of the erosion commands from left to right is
+#     - 'UPLIFT' indicating  this is an runoff command (starts in column 1)
+#     - one parameter: the known aggradation/timestep. Note is a positive number is input
+#       this is interpretted as aggradation, whereas if a negative number if input this
+#       is intrepretted as a degradation
+#     - the region file for applying this parameters (it must inside '')
+#
+#AGGRADATION 0.5 'control\test.rgn'
+#
+#
+#
+#
+#
+#
+#
+# ======================================================================================
+#                                  LAYERS MODULE commands
+# ======================================================================================
+#
+#  Whenever a LAYERS file and ModeErode=4 is specified the file is read for all 
+#  commands that start with LAYERS.
+#
+#  ALL lines starting with other commands (e.g. RUNOFF, UPLIFT) are ignored. Note
+#  that RUNOFF and EROSION and ERODIBILITY commands conflict with LAYERS and errors
+#  may occur if ModeErode=3 or ModeRunoff=3 is set in addition to a LAYER file.
+#  
+#  LAYER commands can be divided into four kinds.
+#
+#    - LAYER CONTROL. These commands allow the user to control the internal 
+#         computational behaviour of the LAYER model (e.g. maximum thickness of layers).
+#         Because they control how the layers module operates they should in general be
+#         the first commands executed.
+#    - LAYER PARAMETERS. These commands provide information about the erosion/runoff
+#         model parameters that are to be used for subsequent LAYER commands (or until
+#         they are superseded by a new LAYER parameter command).
+#    - LAYER ELEVATION. These commands input the elevation properties of
+#         the layer being created. The properties of the LAYER being created are those
+#         input by the most recent LAYER PARAMETER commands.
+#    - LAYER MASKING. These commands input information on the spatial extent of 
+#         the LAYER currently being created. These commands allow you to create a LAYER
+#         that is restricted in spatial extent so that it doesn't have to cover the
+#         entire computational domain.
+#    - LAYER DETACHMENT. These commands input information of the detachment limitation
+#         of the material in that layer.
+#
+#
+#   LAYER CONTROL COMMANDS
+#   ----------------------
+#
+#   - How many tracers to track (default is 0). This command, if tracer tracking is to be done,
+#     MUST be the first LAYER command executed. Current limit is a maximum of 5.
+#
+#LAYER NUMBER_TRACERS 2
+#
+#
+#
+#   - the maximum thickness of a layer created by SIBERIA during deposition. This does 
+#     not preclude the user from inputting a thicker layer but all layers generated by 
+#     the computations will have a maximum thickness as below. NB thin layers can
+#     significantly increase the memory consumption of the code and this increase
+#     may be superlinear (i.e. halving the layer thickness may increase memory 
+#     consumption by more than a factor of 2).
+#
+#LAYER THICKNESS 0.1
+#
+#
+#   LAYER PARAMETER COMMANDS
+#   ----------------------
+#
+#   - the general format of these commands is as for the EROSION/RUNOFF models 
+#     for region input at the top of this file, except that a region file is not
+#     input as part of the command line. For instance for EROSION parameters input
+#     is:
+#     - 'EROSION' indicating  this is an erosion command (starts in column 1)
+#     - one of either 'ABSOLUTE' or 'RELATIVE' indicating
+#          ABSOLUTE: the erosion parameters are as given
+#          RELATIVE: the erosion parameters given are multipied with
+#                   the erosion parameters at that point previously
+#                   given .... ie. this changes the parameters by a relative amount
+#                   (initially the parameters are those set in the parameters input
+#                    at the start)
+#          DEFAULT:  sets the parameters back to the default values (those
+#                    input in the parameters input at the start). This can be handy
+#                    for resetting parameters when you have input lots of layers with
+#                    RELATIVE parameters.
+#     - the parameters. For RELATIVE these are interpretted as multipliers
+#       on the last value for the parameters.
+#     - there are parameters for the layer detachment limitation model are grouped 
+#       at the end of the layer section
+#
+#
+#   - Erosion model parameters 'b1,m1,n1'
+#
+#LAYER EROSION RELATIVE 0.1 0.2 0.3
+#LAYER EROSION ABSOLUTE 1.0 2.0 3.0
+#LAYER EROSION DEFAULT
+#
+#   - Erodibility parameter 'b1'
+#
+#LAYER ERODIBILITY RELATIVE 0.1
+#LAYER ERODIBILITY ABSOLUTE 0.3
+#LAYER ERODIBILITY DEFAULT
+#
+#
+#   - Runoff model parameters 'b3,m3'
+#
+#LAYER RUNOFF RELATIVE 0.5 0.95
+#LAYER RUNOFF ABSOLUTE 0.1 0.5
+#LAYER RUNOFF DEFAULT
+#
+#   - Maximum slope parameter 's0max'
+#
+#LAYER ANGLE_OF_REPOSE RELATIVE 0.5
+#LAYER ANGLE_OF_REPOSE ABSOLUTE 0.2
+#LAYER ANGLE_OF_REPOSE DEFAULT
+#
+#   - Creep parameter 'dZ'
+#
+#LAYER CREEP RELATIVE 0.6
+#LAYER CREEP ABSOLUTE 0.01
+#LAYER CREEP DEFAULT
+#
+#   - Layer tracer concentration (all inputs are absolute) for up to 5 tracers.
+#     The units of concentratino are /volume of sediment.
+#
+#LAYER TRACER_1 0.6
+#LAYER TRACER_2 0.6
+#LAYER TRACER_3 0.6
+#LAYER TRACER_4 0.6
+#LAYER TRACER_5 0.6
+#
+#
+#   LAYER ELEVATION COMMANDS
+#   ----------------------
+#
+#   - the commands for input of the elevations for the layers. NB the input elevations
+#     are for the base of the layer unless otherwise noted (i.e. the layer extends 
+#     upwards from the elevations input.
+#
+#   - a layer covering the surface of thickness given. The top of the capping layer
+#     is the landform surface and the bottom of the capping is 'thickness' below that
+#     surface
+#LAYER CAPPING 2.1
+#
+#   - a layer with base horizontal and with the layer's base at the elevation given
+#LAYER Z 25.2
+#
+#   - a layer that is a bilinear spline. the 1st 4 values are the coordinates of the 
+#     four corners of the rectangular
+#     region (in node coordinates), and the 2nd four values are the elevations at the 
+#     four corners in the order SW, SE, NW, NE corners. 
+#     NB. the spline extends over the 
+#     whole domain and the corner coordinates are ONLY used to determine the elevations 
+#     of the interpolated/extrapolated surface not the spatial extent of the surface
+#     NB: BILINEAR_CLAMPED restricts the layer to the box specified.
+#
+#LAYER BILINEAR 1 20 1 30 10.0 20.0 22.0 35.0
+#LAYER BILINEAR_CLAMPED 1 20 1 30 10.0 20.0 22.0 35.0
+#
+#   - a layer that has as its base the elevations as read from the rst2 file, 
+#     with the elevations offset by
+#     the specified value (i.e. a negative offset is a lower elevation). NB the areal 
+#     extent of the RST2 file must match the RST2 file of the landform DEM.
+#
+#LAYER DEM -2.1 'TEST.RST2'
+#
+#
+#   LAYER MASKING COMMANDS
+#   ----------------------
+#
+#   - these commands specify over what part of the domain the layer will be created. If a 
+#     mask is input and active then the layer will be created for the region specified
+#     by the mask and will not be created outside the mask. For all other cases the 
+#     layer will cover the entire region.
+#
+#   - the mask is that part of the domain specified by the region file. The mask
+#     is automatically activated after input of the region file.
+#
+#LAYER REGION_MASK 'TEST.RGN'
+#
+#   - the mask is that a rectangle defined by the coordinates. The cordinates 
+#     are in the order LOWX,HIGHX,LOWY,HIGHY where the rectangle coordinates 
+#     are (LOWX,LOWY) and (HIGHX,HIGHY). The mask
+#     is automatically activated after input of the region file.
+#
+#LAYER REGION_CLIP 0 10 5 35
+#
+#   - Any mask that has been input can be inactivated (i.e. turned off). In the event 
+#     that the is needed again then it can activated by setting REGION_ACTIVE ON. NB. 
+#     This command does not delete the mask ... it only turns it off ... it can always be 
+#     turned back on again later (unless the mask is overwritten with another RGN file in 
+#     the meantime by a #LAYER REGION_FILE command).
+#
+#LAYER REGION_ACTIVE OFF
+#
+#   - If a mask has been input from a region file then this activates it (i.e. turns it 
+#     on). If no region file has been input then the command is ignored.
+#
+#LAYER REGION_ACTIVE ON
+#
+#
+#   LAYER DETACHMENT MODEL COMMANDS
+#   -------------------------------
+#
+#   - Relative Detachment Rate
+#
+#   - To turn detachment limitation ON (once ON it cannot be turned off)
+#
+#LAYER DETACHMENT ON
+#
+#   - Set the Relative detachment rate for that layer's material  (Default is 1.0)
+#
+#LAYER DETACHMENT RELATIVE 0.6
+#LAYER DETACHMENT ABSOLUTE 0.01
+#LAYER DETACHMENT DEFAULT
+
+
