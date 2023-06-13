@@ -4,9 +4,9 @@ file(GLOB src_files CONFIGURE_DEPENDS
   "${CMAKE_CURRENT_SOURCE_DIR}/*.f90"
 )
 
-add_executable(${model_name}_${version} ${src_files})
+add_executable(${model_name} ${src_files})
 
 install(
-  TARGETS ${model_name}_${version}
+  TARGETS ${model_name}
   DESTINATION ${PROJECT_SOURCE_DIR}
 )
