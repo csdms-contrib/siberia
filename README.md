@@ -56,4 +56,4 @@ Optionally, configure SIBERIA with the files
 as well as with the input data files in the [data/](./data/) directory.
 
 Output from SIBERIA is written to the file `siberia-NNNN.output`,
-where `NNNN` is an incremented four-digit index starting at 1.
+where `NNNN` is an incremented four-digit index starting at 0001.
