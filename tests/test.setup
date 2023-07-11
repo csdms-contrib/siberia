@@ -1,0 +1,459 @@
+# 
+# 
+# ===================================================================|
+#                                                                    |
+#                    SIBERIA LICENSE AGREEMENT                       |
+#                    -------------------------                       |
+#                                                                    |
+#  Please read the following licence information carefully. This     |
+#  computer program ("SIBERIA") is licensed, not sold, to you for use|
+#  only under the terms of this license, and the copyright owner     |
+#  reserves any rights not expressly granted to you.  You own the    |
+#  computer media on which SIBERIA is originally and subsequently    |
+#  recorded or fixed, but the copyright owner retains ownership      |
+#  of all copies of SIBERIA itself                                   |
+#                                                                    |
+#  Unless otherwise stated this licence entitles you to              |
+#     (a) copy this code onto a single computer,                     |
+#     (b) make backup copies of this software,                       |
+#                                                                    |
+#  You may not                                                       |
+#     (a) remove these license agreement, disclaimer, copyright, or  |
+#         limitation of damages notices from this source code,       |
+#     (b) distribute this software to others,                        |
+#     (c) rent,lease, resell, distribute, network, or create         |
+#         derivative products works based upon this software, or     |
+#         any part thereof.                                          |
+#     (d) modify the software in this file without the written       |
+#         permission of the copyright owner.                         |
+#     (e) disclose this source code and algorithms to                |
+#         unlicensed users                                           |
+#                                                                    |
+#  This Licence is effective until terminated. This Licence will     |
+#  terminate automatically without notice from the copyright owner   |
+#  If you fail to comply with any provision of this Licence. Upon    |
+#  termination of this Licence you must destroy this software and    |
+#  all copies thereof. You may terminate the Licence at any time     |
+#  by destroying this software and any copies thereof.               |
+#                                                                    |
+#--------------------------------------------------------------------|
+#                                                                    |
+#                      COPYRIGHT NOTICE                              |
+#                      ----------------                              |
+#                                                                    |
+#        The SIBERIA software is Copyright 1993-2006 by              |
+#                                                                    |
+#     Professor Garry Raymond Willgoose,                             |
+#     School of Engineering                                          |
+#     The University of Newcastle,                                   |
+#     Callaghan, NSW, Australia, 2308                                |
+#                                                                    |
+#        SIBERIA and EAMS are distributed by:                        |
+#                                                                    |
+#     Telluric Research,                                             |
+#     Scone, Australia  2337                                         |
+#                                                                    |
+#     g.willgoose@telluricresearch.com                               |
+#                                                                    |
+#                                                                    |
+#--------------------------------------------------------------------|
+#                                                                    |
+#                       DISCLAIMER                                   |
+#                       ----------                                   |
+#                                                                    |
+#  SIBERIA is provided 'as is' without warranty of any kind          |
+#  either express or implied, including without limitation any       |
+#  warranty with respect to its merchantability, or its fitness for  |
+#  any particular purpose. The entire risk as to the quality and     |
+#  performance of SIBERIA is with you. Should SIBERIA                |
+#  prove defective, you (and not the copyright owner), assume the    |
+#  entire cost of all necessary servicing, repair or correction.     |
+#                                                                    |
+#  The copyright owner does not warrant that the functions contained |
+#  in SIBERIA will meet your requirements or that the operation      |
+#  of SIBERIA will be uninterrrupted or error free or that defects   |
+#  in SIBERIA will be corrected                                      |
+#                                                                    |
+#--------------------------------------------------------------------|
+#                                                                    |
+#                LIMITATION OF DAMAGES                               |
+#                ---------------------                               |
+#                                                                    |
+#  In no event will the copyright owner be liable (i) to you for any |
+#  incidental, consequential or indirect damages (including damages  |
+#  for loss of business profits, business interruption, loss of      |
+#  business information, and the like) arising out of the use of or  |
+#  inability to use SIBERIA even if the copyright owner has been     |
+#  advised of the possibility of such damages, or (ii) for any       |
+#  claim by any other party.                                         |
+#                                                                    |
+# ====================================================================
+#
+#
+#                       HOW TO USE THIS FILE
+#                      ----------------------
+#
+#    This file controls the operation of SIBERIA. Its name should always be 'siberia.setup'
+#    (all in lower case on Unix or Mac OSX machines) and it should be situated in the 
+#    directory in which SIBERIA is being run.
+#    If the file exists in that directory then SIBERIA reads it automatically.
+#    If the file does not exist then SIBERIA simply continues on without it, choosing default
+#    values where necessary.
+#
+#    To make this file easier to use all of the allowable commands are listed below. The commands
+#    are the lines all in UPPER CASE while the comments and explanations are the lines in lower
+#    case.
+#
+#    If a line starts in column 1 with either of # or ! character then that line is treated 
+#    as a comment and is ignored by SIBERIA. To make a command active all you have to do 
+#    is to uncomment the appropriate line (i.e. remove the # or ! from the first column). 
+#    To inactivate it you simply add the # or ! to the first column again. Explanations 
+#    for the commands are provided immediately above the commands.
+#
+#    There are a number of commands that turn some mode in the model off or on. There are always
+#    three options for these modes. ON = (turn that mode on), OFF = (turn that mode off), 
+#    DEFAULT = (do whatever the code decides is best in the circumstances). If you do not 
+#    enable one these three options then the code chooses DEFAULT automatically. NOTE: the
+#    default action may not always be the same as it may vary with size of the problem being
+#    solved, whether SIBERIA detects that is being run of a multiprocessor machine, etc, so if
+#    you absolutely must have some form of behaviour then specify it otherwise SIBERIA may run
+#    differently on different machines
+#
+#                       FILE REVISION HISTORY
+#                      -----------------------
+#           - updated for V8.31  10/ 6/2006 (GRW)
+#
+#
+#
+# ======================================================================================
+# -- To echo whatever is output to the screen to a file called (in the example command below
+#    it is 'junk.output') uncomment the line starting ECHO
+# -- To NOT echo to a file uncomment the line starting NOECHO
+# -- ECHO_INCR appends a unique number to the filename to ensure that it doesn't overwrite
+#    the output file from previous runs of siberia
+# ======================================================================================
+#
+#ECHO junk.output
+#NOECHO 
+#ECHO_INCR siberia.output
+#
+ECHO_INCR siberia.output
+#
+# ======================================================================================
+# -- To have the program halt at the end of the run without the window automatically closing
+#    then uncomment the line PAUSE_AT_END ON. 
+# -- To have the window automatically close at the end of the run then uncomment the line
+#    PAUSE_AT_END OFF
+# -- To have the program do whatever its default behaviour is with the window at the end
+#    of the run then uncomment line then uncomment PAUSE_AT_END DEFAULT. 
+# ======================================================================================
+#
+#PAUSE_AT_END ON
+#PAUSE_AT_END OFF
+#PAUSE_AT_END DEFAULT
+#
+PAUSE_AT_END OFF
+#
+# ======================================================================================
+# -- To allow RST output files to be overwritten uncomment the line RST_OVERWRITE ON. 
+# -- To stop RST output files from being overwritten uncomment the line RST_OVERWRITE OFF
+# -- To have the program do whatever its default behaviour (typically this is to NOT
+#    overwrite the RST files) uncomment RST_OVERWRITE DEFAULT. 
+# ======================================================================================
+#
+#RST_OVERWRITE ON
+#RST_OVERWRITE OFF
+RST_OVERWRITE DEFAULT
+#
+# ======================================================================================
+#                      PARALLEL OPTIONS
+#                      ----------------
+#    This option is to set the maximum no of threads that the parallel implementation
+#    of SIBERIA can use. The code will use this number of threads and attempt to get
+#    that many number of processors from the computer.  This option is ignored if the
+#    standard serial version of code is being used. If this option is not used then
+#    the code grabs a default (typically small but > 1) number of processors. On shared
+#    parallel supercomputers choosing a large number of threads may slow the starting of
+#    the code until the requested number of processors become available.
+# ======================================================================================
+#
+NO_THREADS 1
+#
+# ======================================================================================
+#                      EAMS COMPATIBILITY OPTIONS
+#                      --------------------------
+#  Output the elevation data in an xyz format (identical to the format read by EAMS) 
+#  in addition to the output in the .rst2 files. This option is also useful in EAMS 
+#  for output back to mine management and CAD (e.g. AutoCad) packages.
+# ======================================================================================
+#
+#XYZ_FILE
+#
+# ======================================================================================
+#                       OUTPUT OF SUPPLEMENTARY CALCULATION DATA
+#                       ----------------------------------------
+#  The following OUTPUT commands provide supplementary information to what is
+#  in the RST file. The data below are output in a .RSU file. A maximum of 10 
+#  datsets may be output.
+# 
+#  There are two forms of the OUTPUT command
+#   OUTPUT          : This outputs the specified data set into an RSU file which is 
+#                     a text column format used by all of the software in the EAMS suite
+#                     and which is easily readable into data analysis programs (e.g. EXCEL
+#                     Kaleidograph, SigmaPlot).
+#   OUTPUT_BIN      : In addition to the RSU file this form also outputs the dataset into
+#                     a binary file (the filename is name.abbrev.bin where 'name' is the 
+#                     same as the RST and RSU files, 'abbrev' is a self evident
+#                     abbreviation for the dataset requested) that can be streamed into
+#                     visualisation packages like IDL, EXPLORER etc. 
+#                     The format is 2 4byte integers (the x and y dimensions of the grid)
+#                     followed by the data in 4byte floating point (by the x dimension first).
+#                     Note is you request more than one dataset to be OUTPUT_BIN then each
+#                     dataset requested goes into a seperate file with the appropriate 
+#                     name.
+# ======================================================================================
+#
+# the amount of sediment being transported (cubic metres/timestep/m width) analytically
+# derived from the transport equation.
+#
+#OUTPUT SED_FLUX
+#
+#
+# the potential and actual sediment transport (cubic metres/timestep/m width) as determined by
+# the transport-detachment limited transport model (i.e. ModeSolver=8). 
+# They may not match SED_FLUX exactly due to time discretisation error.
+#
+#OUTPUT SED_FLUX_POTENTIAL
+#OUTPUT SED_FLUX_ACTUAL
+#
+#
+# the amount of sediment removed/timestep in units of height at any pt in the grid at the
+# the requested time.
+#
+#OUTPUT YIELD
+#
+# the average amount of sediment removed/timestep in units of height averaged over the
+# total catchment draining through that node.
+#
+#OUTPUT AVEYIELD
+#
+# the change in elevation at a point from the start of the simulation (+ve increase
+# in elevation -ve decrease in elevation).
+#
+#OUTPUT ZCHANGE
+#
+# the change in elevation from the start of the simulation averaged over the catchment
+# draining through that point at that point in time (ie. the catchment area used for 
+# calculating the average elevation for the initial conditions is NOT the catchment
+# draining through that point at the beginning, but rather that catchment at the simulation
+# time for output)
+#
+#OUTPUT AVEZCHANGE
+#
+# the channel initiation function at that point
+#
+#OUTPUT GULLYPOT
+#
+# the log of the channel initiation function at that point
+#
+#OUTPUT LOGGULLYPOT
+#
+# the suggested steady state elevation for area-slope equilibrium based on the
+# erosion parameters used in the simulation) NOT YET IMPLEMENTED.
+#
+#OUTPUT ZSUGGEST
+#
+# the change in elevations required to modify the existing elevations so that
+# the elevations would comply with the area-slope equilibrium based on the erosion
+# parameters used in the simulation. (NOT YET IMPLEMENTED)
+#
+#OUTPUT DZSUGGEST
+#
+#  the erosion loss in weight units at a point (simply the elevation loss divided
+#  by the bulk density). This assumes that the units of height are metres and the
+#  units of length for the grid spacing are also metres.
+#
+#OUTPUT TONNESHECTARE
+#
+#  the erosion loss in weight units averaged over the catchment draining through
+#  at that point (simply the elevation loss divided
+#  by the bulk density). This assumes that the units of height are metres and the
+#  units of length for the grid spacing are also metres.
+#
+#OUTPUT AVETONNESHECTARE
+#
+#  the stability number for every point in the domain for the last timestep
+#
+#OUTPUT STABILITY
+#
+#  the area-slope number for every point in the domain. It is calculated as
+#  area*slope^((m1*m3-1)/n1) and for a landform with optimal shape in equilibrium
+#  with tectonic uplift should be constant everywhere in the domain
+#
+#OUTPUT AREASLOPE
+#
+#  the area-slope-elevation number for every point in the domain. It is calculated as
+#  area*slope^((m1*m3-1)/n1)/Zave^(1/n1) where Zave is the average elevation of the
+#  catchment draining though that point. For a landform with optimal shape
+#  with erosion down to a flat plain this should be constant everywhere
+#
+#OUTPUT AREASLOPEELEVATION
+#
+#  The Mean annual discharge used in the erosion model
+#
+#OUTPUT DISCHARGE_MEANANNUAL
+#
+#
+#               SOILS MODEL OUTPUTS
+#               -------------------
+#   The outputs that follow can only be output when the soils model is turned ON.
+#
+#OUTPUT SOILMOISTURE
+#
+#   - Bedrock properties can only be output for ModeSoils=2
+#
+#OUTPUT BEDROCK_Z
+#OUTPUT BEDROCK_SLOPE
+#OUTPUT BEDROCK_AREA
+#OUTPUT BEDROCK_DIRECTIONS
+#
+#
+#
+#               LAYERS MODEL OUTPUTS
+#               -------------------
+#   The outputs that follow can only be output when the layering model is turned ON.
+#
+#
+#   The B1 of the surface Layer (equivalent to OUTPUT LAYER_1_B1 except SURFACE_B1 will
+#   give the surface B1 even if the layers model is not used)
+#OUTPUT SURFACE_B1
+#   The B1 of the flow
+#OUTPUT FLOW_B1
+#   Number of layers at that node
+#OUTPUT LAYER_NO
+#   Layer properties for the top 5 layers 
+#    ... note if the layer doesn't exist then zeros are output
+#    ... OUTPUT LAYER_1_B1 is equivalent to OUTPUT SURFACE_B1 and is provided to display
+#        B1 when layers is not used (SURFACE_B1 doesn't need the layers model while 
+#        LAYER_1_B1 does).
+#OUTPUT LAYER_1_B1
+#OUTPUT LAYER_2_B1
+#OUTPUT LAYER_3_B1
+#OUTPUT LAYER_4_B1
+#OUTPUT LAYER_5_B1
+#
+#OUTPUT LAYER_1_Z
+#OUTPUT LAYER_2_Z
+#OUTPUT LAYER_3_Z
+#OUTPUT LAYER_4_Z
+#OUTPUT LAYER_5_Z
+#
+#
+#
+#               The Detachment-Limitation Model
+#               -------------------------------
+#   This model is only available in combination with the LAYERS module
+#   so the output commands are a subset of the LAYERS commands (and LAYERS
+#   model has to be activated to enable the detachment model)
+#
+#   The detachment rate for the material in the flow
+#OUTPUT LAYER_FLOW_DETACHMENT
+#
+#   The detachment rate of the material for the various layers (note LAYER=1
+#   is equivalent to the detachment rate for the surface)
+#OUTPUT LAYER_1_DETACHMENT
+#OUTPUT LAYER_2_DETACHMENT
+#OUTPUT LAYER_3_DETACHMENT
+#OUTPUT LAYER_4_DETACHMENT
+#OUTPUT LAYER_5_DETACHMENT
+#
+#
+#
+#
+#               The Tracer Model
+#               -----------------
+#   This model is only available in combination with the LAYERS module
+#   so the output commands are a subset of the LAYERS commands (and LAYERS
+#   model has to be activated to enable the detachment model), A maximum 
+#   number of 5 tracers is implemented.
+#
+#   The concentration of tracer i in the flow
+#
+#OUTPUT FLOW_TRACER_1
+#OUTPUT FLOW_TRACER_2
+#OUTPUT FLOW_TRACER_3
+#OUTPUT FLOW_TRACER_4
+#OUTPUT FLOW_TRACER_5
+#
+#   The concentratino of tracer in the sediment layers is given by 
+#   If the tracer requested is not being tracked 0.0 is output
+#   Layer 1
+#   -------
+#OUTPUT LAYER_1_TRACER_1
+#OUTPUT LAYER_1_TRACER_2
+#OUTPUT LAYER_1_TRACER_3
+#OUTPUT LAYER_1_TRACER_4
+#OUTPUT LAYER_1_TRACER_5
+#   Layer 2
+#   -------
+#OUTPUT LAYER_2_TRACER_1
+#OUTPUT LAYER_2_TRACER_2
+#OUTPUT LAYER_2_TRACER_3
+#OUTPUT LAYER_2_TRACER_4
+#OUTPUT LAYER_2_TRACER_5
+#   Layer 3
+#   -------
+#OUTPUT LAYER_3_TRACER_1
+#OUTPUT LAYER_3_TRACER_2
+#OUTPUT LAYER_3_TRACER_3
+#OUTPUT LAYER_3_TRACER_4
+#OUTPUT LAYER_3_TRACER_5
+#   Layer 4
+#   -------
+#OUTPUT LAYER_4_TRACER_1
+#OUTPUT LAYER_4_TRACER_2
+#OUTPUT LAYER_4_TRACER_3
+#OUTPUT LAYER_4_TRACER_4
+#OUTPUT LAYER_4_TRACER_5
+#   Layer 5
+#   -------
+#OUTPUT LAYER_5_TRACER_1
+#OUTPUT LAYER_5_TRACER_2
+#OUTPUT LAYER_5_TRACER_3
+#OUTPUT LAYER_5_TRACER_4
+#OUTPUT LAYER_5_TRACER_5
+#
+#
+#
+#
+#               INTERNAL MODEL STATES
+#               ---------------------
+#   These commands provide diagnostic output of the internal model operations. They
+#   are primarily available to aid debugging of the code operation and provided here
+#   as a memory aid for the developer.
+#
+#   States that control the stability/mass balance of the solver
+#
+#   Elevation changes of predictor
+#OUTPUT PREDICTOR_SED
+#
+#   Elevation changes of corrector
+#OUTPUT CORRECTOR_SED
+#
+#   Difference between elevation changes of predictor and corrector
+#OUTPUT PREDCORRECT_SED_DIFF
+#
+#   Relative difference between elevation changes of predictor and corrector
+#OUTPUT PREDCORRECT_SED_RATIO
+#
+#
+#   The weights generated by the Dinfinity algorithm
+#
+#OUTPUT DINFWEIGHTS
+#   
+#   A domain mask 0=outside computational domain, 1=inside computational domain
+#OUTPUT DOMAIN
+
+
+
+
