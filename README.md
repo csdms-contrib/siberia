@@ -68,9 +68,17 @@ cmake --build . --target install --config Release
 ```
 This places the executable `siberia` in `<install-prefix>/bin`.
 
+## Test
+
+After installing SIBERIA,
+tests can be run on Linux and macOS:
+```
+make test
+```
+
 ## Run
 
-Run SIBERIA with the `siberia` executable.
+Run SIBERIA with the `siberia` command.
 Optionally, configure SIBERIA with the files
 
 * `siberia.setup`
@@ -78,7 +86,23 @@ Optionally, configure SIBERIA with the files
 * `layer.model.txt`
 * `default-directory.txt`
 
-as well as with the input data files in the [data/](./data/) directory.
+SIBERIA is an interactive program.
+It will prompt you for a series of parameter inputs.
+
+To run SIBERIA noninteractively,
+set up a parameter file and use shell redirection.
+For example,
+to run SIBERIA with its default parameters,
+use the file `default.cfg` in the `tests` directory:
+```
+siberia < tests/default.cfg
+```
+To use SIBERIA with example data files
+provided by the model's author
+in the [data/](./data/) directory, try:
+```
+siberia < tests/example.cfg
+```
 
 Output from SIBERIA is written to the file `siberia-NNNN.output`,
 where `NNNN` is an incremented four-digit index starting at 0001.
