@@ -1,7 +1,0 @@
-  Error Log File : Time = 15:27:02.647 Date = 19-10-2006
-  --------------------------------------------------
-
-  --- WARNING --- No #siberia.setup# file
-  --- WARNING ---  Requested RST file does not exist
-  --- WARNING ---  Requested BND file does not exist
-  --- ERROR ---  One of the required input files does not exist

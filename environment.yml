@@ -1,0 +1,8 @@
+# A conda environment for building and running SIBERIA
+name: siberia
+channels:
+  - conda-forge
+dependencies:
+  - python =3
+  - cmake
+  - fortran-compiler

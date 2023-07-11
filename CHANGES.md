@@ -1,5 +1,5 @@
-       KEY POINTS IN THE REVISION HISTORY OF SIBERIA V8
-     ====================================================
+KEY POINTS IN THE REVISION HISTORY OF SIBERIA V8
+================================================
 
 V8.01
 -----

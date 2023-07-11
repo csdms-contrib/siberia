@@ -2295,7 +2295,7 @@ SUBROUTINE MessageOutput(severity,str1)
           call Message_OpenErrorLogFile()
           WRITE (ErrorFileUnit,6000) ' --- ERROR --- '//trim(str1)
         end if
-        CALL done
+        CALL done_support
 !
       case(Message_ErrorContinue) 
         if (Prompt) WRITE (*,6000) ' --- ERROR --- '//trim(str1)
@@ -2312,7 +2312,7 @@ SUBROUTINE MessageOutput(severity,str1)
           call Message_OpenErrorLogFile()
           WRITE (ErrorFileUnit,6000) ' --- WARNING --- '//trim(str1)
         end if
-        CALL done
+        CALL done_support
 ! 
       case(Message_WarnContinue)
         if (Prompt) WRITE (*,6000) ' --- WARNING --- '//trim(str1)
@@ -2392,7 +2392,7 @@ SUBROUTINE Message_OutputN(severity,string,NoLines)
             WRITE (ErrorFileUnit,6000) ' --- ERROR --- '//trim(string(i))
           END DO
         END IF
-        call done
+        call done_support
 !
       case(Message_ErrorContinue) 
         if (prompt) then 
@@ -2429,7 +2429,7 @@ SUBROUTINE Message_OutputN(severity,string,NoLines)
             WRITE (ErrorFileUnit,6000) ' --- WARNING --- '//trim(string(i))
           END DO
         END IF
-        call done
+        call done_support
 ! 
       case(Message_WarnContinue)
         if (prompt) then 
@@ -2972,7 +2972,7 @@ SUBROUTINE Working(iterations)
     RETURN
 END SUBROUTINE Working
 
-subroutine done
+subroutine done_support
   implicit none
   logical :: log
   character(1) :: junk
@@ -2990,7 +2990,7 @@ subroutine done
  1000   FORMAT(a)
       END IF
       STOP
-end subroutine done
+end subroutine done_support
 
 !
 END MODULE Support
