@@ -152,7 +152,7 @@ ECHO_INCR siberia.output
 #PAUSE_AT_END OFF
 #PAUSE_AT_END DEFAULT
 #
-PAUSE_AT_END ON
+PAUSE_AT_END OFF
 #
 # ======================================================================================
 # -- To allow RST output files to be overwritten uncomment the line RST_OVERWRITE ON. 
