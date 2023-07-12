@@ -11,8 +11,7 @@ This example can be built on Linux, macOS, and Windows.
 * A Fortran compiler
 * CMake
 
-Optionally,
-at CSDMS we recommend setting up a [conda environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
+At CSDMS we recommend setting up a [conda environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 into which these prerequisites, and SIBERIA, can be installed.
 After [installing conda](https://conda.io/projects/conda/en/latest/index.html) on your system,
 create a conda environment from the file [environment.yml](./environment.yml) with:
@@ -42,13 +41,13 @@ Then, to install:
 ```
 make install
 ```
-This places the executable `siberia` in `<install-prefix>/bin`.
+This places the executable `siberia` in `<install-prefix>/bin` in your path.
 
 ### Windows
 
 An additional prerequisite is needed for Windows:
 
-* Microsoft Visual Studio 2017 or Microsoft Build Tools for Visual Studio 2017
+* Microsoft Visual Studio 2019 or Microsoft Build Tools for Visual Studio 2019
 
 To configure this example from source with CMake
 run the following in a [Developer Command Prompt](https://docs.microsoft.com/en-us/dotnet/framework/tools/developer-command-prompt-for-vs)
@@ -59,21 +58,21 @@ cmake .. -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=
 where `<install-prefix>` is the base directory
 where SIBERIA is installed (`"C:\Program Files (x86)"` is the default).
 When using a conda environment,
-use the `$CONDA_PREFIX` environment variable for `<install-prefix>`.
+use the `%CONDA_PREFIX%` environment variable for `<install-prefix>`.
 
 
 Then, to build and install:
 ```
 cmake --build . --target install --config Release
 ```
-This places the executable `siberia` in `<install-prefix>/bin`.
+This places the executable `siberia` in `<install-prefix>/bin` in your path.
 
 ## Test
 
 After installing SIBERIA,
-tests can be run on Linux and macOS:
+tests can be run with:
 ```
-make test
+ctest
 ```
 
 ## Run
@@ -98,8 +97,7 @@ use the file `default.cfg` in the `tests` directory:
 siberia < tests/default.cfg
 ```
 To use SIBERIA with example data files
-provided by the model's author
-in the [data/](./data/) directory, try:
+provided in the [data/](./data/) directory, try:
 ```
 siberia < tests/example.cfg
 ```
