@@ -38,3 +38,6 @@
 _build
 _install
 
+# Model files
+SiberiaErrors.txt
+siberia-????.output

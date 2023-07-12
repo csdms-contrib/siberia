@@ -10,4 +10,5 @@ message(STATUS "Model name: ${CMAKE_PROJECT_NAME}")
 message(STATUS "Model version: ${CMAKE_PROJECT_VERSION}")
 
 add_subdirectory(src)
+add_subdirectory(tests)
 include(CTest)

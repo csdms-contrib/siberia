@@ -6,3 +6,4 @@ dependencies:
   - python =3
   - cmake
   - fortran-compiler
+  - cxx-compiler  # [win]
