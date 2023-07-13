@@ -1,0 +1,55 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    if:
+      github.event_name == 'push' || github.event.pull_request.head.repo.full_name !=
+      github.repository
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        python-version: ["3.11"]
+        build-type: [Release]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: conda-incubator/setup-miniconda@v2
+        with:
+          miniforge-variant: Mambaforge
+          miniforge-version: latest
+          environment-file: environment.yml
+          activate-environment: siberia
+          python-version: ${{ matrix.python-version }}
+
+      - name: Show conda installation info
+        run: |
+          mamba info
+          mamba list
+
+      - name: Make CMake build directory
+        run: cmake -E make_directory _build
+
+      - name: Configure CMake
+        working-directory: ${{ github.workspace }}/_build
+        run: |
+          cmake $GITHUB_WORKSPACE \
+            -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} \
+            -DCMAKE_INSTALL_PREFIX=$CONDA_PREFIX
+
+      - name: Build and install SIBERIA
+        working-directory: ${{ github.workspace }}/_build
+        run: cmake --build . --target install --config ${{ matrix.build-type }}
+
+      - name: Run tests
+        working-directory: ${{ github.workspace }}/_build
+        run: ctest -C ${{ matrix.build-type }} --output-on-failure
