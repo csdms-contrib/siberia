@@ -53,3 +53,16 @@ jobs:
       - name: Run tests
         working-directory: ${{ github.workspace }}/_build
         run: ctest -C ${{ matrix.build-type }} --output-on-failure
+
+      - name: Memcheck
+        if: matrix.os == 'ubuntu-latest'
+        working-directory: ${{ github.workspace }}/_build
+        run: |
+          sudo apt-get install -y valgrind
+          valgrind \
+            --tool=memcheck \
+            --leak-check=yes \
+            --show-reachable=yes \
+            --num-callers=20 \
+            --track-fds=yes \
+            "siberia < ./data/default.cfg"
