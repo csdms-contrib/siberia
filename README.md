@@ -104,3 +104,6 @@ siberia < tests/example.cfg
 
 Output from SIBERIA is written to the file `siberia-NNNN.output`,
 where `NNNN` is an incremented four-digit index starting at 0001.
+
+For more information on the theory and practice of SIBERIA,
+see the [User Manual for SIBERIA](https://www.telluricresearch.com/siberia_8.30_manual.pdf) (PDF).
